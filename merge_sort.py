@@ -3,26 +3,31 @@ def divide(array):
 
 	n = len(array)
 
-	left = array[:n//2]
-	right = array[n//2:]
-
-	if len(left) <= 1 or len(right) <= 1:
-		return merge(left, right)
+	if n <= 1:
+		return array
 	else:
+		left = array[:n//2]
+		right = array[n//2:]
 		left = divide(left)
 		right = divide(right)
 		return merge(left, right)
 
-	
 
 def merge(array1, array2):
 
 	n = len(array1) + len(array2)
 
 	maximun = 0
-	if max(array1) >= max(array2):
-		maximun = max(array1)
-	else:
+	if len(array1) >= 1 and len(array2) >= 1:
+		if max(array1) >= max(array2):
+			maximun = max(array1)
+		else:
+			maximun = max(array2)
+
+	if len(array1) < 1:
+		maximun = max(array2)
+
+	if len(array2) < 1:
 		maximun = max(array2)
 
 	array1.append(maximun+1)
@@ -43,6 +48,3 @@ def merge(array1, array2):
 			i += 1
 
 	return sorted_array
-
-
-
